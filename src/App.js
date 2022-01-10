@@ -1,34 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NotFoundPage from "./containers/404";
 import Home from "./containers/Home";
 import SignIn from "./containers/SignIn";
 import SignUp from "./containers/SignUp";
 import Dashboard from "./containers/Dashboard";
+import Header from "./layout/Header";
 
 function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/signup">signup</Link>
-            </li>
-            <li>
-              <Link to="/signin">signin</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">dashboard</Link>
-            </li>
-            <li>
-              <Link to="/asd">Users</Link>
-            </li>
-          </ul>
-        </nav>
+        <Header />
 
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
