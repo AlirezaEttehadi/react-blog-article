@@ -9,24 +9,16 @@ function SignUp({ _createNewUser }) {
   const passwordRef = useRef();
   const confirmedPasswordRef = useRef();
 
-  const createUser = () => {
-    console.log("123123");
-  };
-
   return (
     <div
       className="w-100 d-flex align-items-center justify-content-center"
       style={{ height: 500 }}
     >
       <Card className="p-5" style={{ backgroundColor: "#FFF5EE" }}>
-        <Form onSubmit={createUser}>
+        <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              ref={emailRef}
-            />
+            <Form.Control type="email" placeholder="Enter email" ref={emailRef} />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
@@ -49,7 +41,16 @@ function SignUp({ _createNewUser }) {
             />
           </Form.Group>
           <Link to="/dashboard">
-            <Button variant="primary" type="submit">
+            <Button
+              variant="primary"
+              type="submit"
+              onClick={() =>
+                _createNewUser({
+                  email: emailRef.current.value,
+                  password: passwordRef.current.value,
+                })
+              }
+            >
               Submit
             </Button>
           </Link>
