@@ -6,3 +6,16 @@ export function createNewUser(data) {
     data
   }
 }
+export function setUser(data) {
+  return { 
+    type: constants.SET_USER,
+    data
+  }
+}
+
+export function setUserError(data) {
+  return { 
+    type: constants.SET_USER_ERROR,
+    data
+  }
+}

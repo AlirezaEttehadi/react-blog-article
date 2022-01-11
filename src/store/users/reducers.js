@@ -2,6 +2,7 @@ import * as constants from "./constants";
 
 export const initialState = {
   user: {},
+  userError : false
 };
 
 export default function users(state = initialState, action) {
@@ -9,7 +10,12 @@ export default function users(state = initialState, action) {
     case constants.SET_USER:
       return {
         ...state,
-        user: action.payload,
+        user: action.data,
+      };
+    case constants.SET_USER_ERROR:
+      return {
+        ...state,
+        userError: action.data,
       };
     default:
       return state;

@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { createNewUser } from "../store/users/actions";
+import { createNewUser, setUserError } from "../store/users/actions";
 
-function SignUp({ _createNewUser }) {
+function SignUp({ _createNewUser, userError, _setUserError }) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmedPasswordRef = useRef();
@@ -18,7 +18,11 @@ function SignUp({ _createNewUser }) {
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" ref={emailRef} />
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              ref={emailRef}
+            />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
@@ -44,12 +48,13 @@ function SignUp({ _createNewUser }) {
             <Button
               variant="primary"
               type="submit"
-              onClick={() =>
+              onClick={(event) => {
+                event.preventDefault();
                 _createNewUser({
                   email: emailRef.current.value,
                   password: passwordRef.current.value,
-                })
-              }
+                });
+              }}
             >
               Submit
             </Button>
@@ -59,15 +64,26 @@ function SignUp({ _createNewUser }) {
             <Link to="/signin">Sign In</Link>
           </div>
         </Form>
+        {userError && (
+          <div style={{ color: "#ED4F32" }} className="mt-3">
+            {userError}
+          </div>
+        )}
       </Card>
     </div>
   );
 }
 
+function mapStateToProps(state) {
+  return {
+    userError: state.users.userError,
+  };
+}
 function mapDispatchToProps(dispatch) {
   return {
     _createNewUser: (data) => dispatch(createNewUser(data)),
+    _setUserError: (data) => dispatch(setUserError(data)),
   };
 }
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
