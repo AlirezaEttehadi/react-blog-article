@@ -6,8 +6,8 @@ const firebaseConfig = {
   projectId: "react-blog-e6e6a",
   storageBucket: "react-blog-e6e6a.appspot.com",
   messagingSenderId: "507900724396",
-  appId: "1:507900724396:web:d1dce770cfcd22650a0b09"
+  appId: "1:507900724396:web:d1dce770cfcd22650a0b09",
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
