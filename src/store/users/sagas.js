@@ -6,23 +6,21 @@ import * as constants from "./constants";
 
 function* createNewUserSaga(action) {
   try {
-    const {
-      user: {},
-    } = yield call(
+    const userObj = yield call(
       createUserWithEmailAndPassword,
       firebaseAuth,
       action.data.email,
       action.data.password
     );
-    console.log(user);
-    if (user?.accessToken) {
+    console.log(userObj?.user)
+    if (userObj?.user?.accessToken) {
       yield put(setUserError(""));
-      yield put(setUser(user));
+      yield put(setUser(userObj?.user));
     } else {
       yield put(setUserError("creating user was not succeessful!"));
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
     yield put(setUserError(true));
   }
 }
