@@ -1,18 +1,21 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { signUpWithEmailPasswordFirebase } from "../../firebase";
+import { firebaseAuth } from "../../firebase";
 import { setUser, setUserError } from "./actions";
 import * as constants from "./constants";
 
 function* createNewUserSaga(action) {
   try {
-    const user = yield call(
-      signUpWithEmailPasswordFirebase,
+    const userObj = yield call(
+      createUserWithEmailAndPassword,
+      firebaseAuth,
       action.data.email,
       action.data.password
     );
-    if (user?.accessToken) {
+    console.log(userObj?.user)
+    if (userObj?.user?.accessToken) {
       yield put(setUserError(""));
-      yield put(setUser(user));
+      yield put(setUser(userObj?.user));
     } else {
       yield put(setUserError("creating user was not succeessful!"));
     }
